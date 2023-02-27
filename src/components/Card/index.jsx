@@ -1,42 +1,53 @@
-import DefaultPicture from '../../assets/profile.jpg'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
+import { useTheme } from '../../utils/hooks'
+import DefaultPicture from '../../assets/profile.png'
 
 const CardLabel = styled.span`
-  color: #5843e4;
-  font-size: 1.2rem;
-  font-weight: bold;
-  align-self: flex-start;
+  color: ${({ theme }) => (theme === 'light' ? colors.primary : '#ffffff')};
+  font-size: 22px;
+  font-weight: normal;
+  padding-left: 15px;
 `
+
+const CardTitle = styled.span`
+  color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
+  font-size: 22px;
+  font-weight: normal;
+  align-self: center;
+`
+
 const CardImage = styled.img`
-  height: 120px;
-  width: 120px;
+  height: 150px;
+  width: 150px;
+  align-self: center;
   border-radius: 50%;
 `
+
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 15px;
+  justify-content: space-around;
   padding: 15px;
-  background-color: ${colors.backgroundLight};
+  background-color: ${({ theme }) =>
+    theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
   border-radius: 30px;
-  width: 220px;
-  height: 220px;
-  transition: 200ms;
+  width: 300px;
+  height: 300px;
   &:hover {
     cursor: pointer;
-    box-shadow: 2px 2px 10px #e2e3e9;
   }
 `
 
 function Card({ label, title, picture }) {
+  const { theme } = useTheme()
+
   return (
-    <CardWrapper>
-      <CardLabel>{label}</CardLabel>
+    <CardWrapper theme={theme}>
+      <CardLabel theme={theme}>{label}</CardLabel>
       <CardImage src={picture} alt="freelance" />
-      <span>{title}</span>
+      <CardTitle theme={theme}>{title}</CardTitle>
     </CardWrapper>
   )
 }

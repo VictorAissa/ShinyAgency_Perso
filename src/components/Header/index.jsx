@@ -1,43 +1,41 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import colors from '../../utils/style/colors'
-import logo from '../../assets/dark-logo.png'
+import { StyledLink } from '../../utils/style/Atoms'
+import LightLogo from '../../assets/light-logo.png'
+import DarkLogo from '../../assets/dark-logo.png'
+import { useTheme } from '../../utils/hooks'
 
-const StyledLink = styled(Link)`
-  padding: 15px;
-  color: ${colors.secondary};
-  text-decoration: none;
-  font-size: 18px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  ${(props) =>
-    props.$isFullLink &&
-    `color: white; border-radius: 30px; background-color: ${colors.primary};`}
+const HomeLogo = styled.img`
+  height: 70px;
 `
-const StyledNav = styled.nav`
-  display: flex;
-`
-const StyledImg = styled.img`
-  height: 60px;
-`
-const StyledBanner = styled.div`
+
+const NavContainer = styled.nav`
+  padding: 30px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `
 
 function Header() {
+  const { theme } = useTheme()
+
   return (
-    <StyledBanner>
-      <StyledImg src={logo} />
-      <StyledNav>
-        <StyledLink to="/">Accueil</StyledLink>
-        <StyledLink to="/freelances">Profils</StyledLink>
+    <NavContainer>
+      <Link to="/">
+        <HomeLogo src={theme === 'light' ? DarkLogo : LightLogo} />
+      </Link>
+      <div>
+        <StyledLink $theme={theme} to="/">
+          Accueil
+        </StyledLink>
+        <StyledLink $theme={theme} to="/freelances">
+          Profils
+        </StyledLink>
         <StyledLink to="/survey/1" $isFullLink>
           Faire le test
         </StyledLink>
-      </StyledNav>
-    </StyledBanner>
+      </div>
+    </NavContainer>
   )
 }
 
