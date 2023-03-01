@@ -77,17 +77,17 @@ function Survey() {
   const surveyData = data?.surveyData
 
   if (error) {
-    return <span>Oups il y a eu un problème</span>
+    return <span>Il y a un problème</span>
   }
 
   return (
     <SurveyContainer>
       <QuestionTitle theme={theme}>Question {questionNumber}</QuestionTitle>
       {isLoading ? (
-        <Loader />
+        <Loader data-testid="loader" />
       ) : (
-        <QuestionContent theme={theme}>
-          {surveyData[questionNumber]}
+        <QuestionContent theme={theme} data-testid="question-content">
+          {surveyData && surveyData[questionNumber]}
         </QuestionContent>
       )}
       <ReplyWrapper>
